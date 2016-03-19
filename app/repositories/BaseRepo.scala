@@ -1,6 +1,7 @@
 package repositories
 
 import play.api.Play
+import repositories.bridge.CouchbaseDriver
 
 import scala.collection.JavaConverters._
 
@@ -9,8 +10,11 @@ import scala.collection.JavaConverters._
   */
 trait BaseRepo {
 
-  lazy val userServers = Play.current.configuration.getString("couchbase.hosts").getOrElse("localhost").split(",").toList.asJava
-  lazy val userBucketName = Play.current.configuration.getString("couchbase.bucket").getOrElse("user")
-  lazy val userName = Play.current.configuration.getString("couchbase.user")
-  lazy val userPassword = Play.current.configuration.getString("couchbase.pass")
+  lazy private val userServers = Play.current.configuration.getString("couchbase.hosts").getOrElse("localhost").split(",").toList.asJava
+  lazy private val userBucketName = Play.current.configuration.getString("couchbase.bucket").getOrElse("user")
+  lazy private val userName = Play.current.configuration.getString("couchbase.user")
+  lazy private val userPassword = Play.current.configuration.getString("couchbase.pass")
+
+
+  lazy val couchbaseDriver = new CouchbaseDriver(userServers, userBucketName)
 }

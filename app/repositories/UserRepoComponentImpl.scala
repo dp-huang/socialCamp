@@ -1,30 +1,29 @@
 package repositories
 
+import com.couchbase.client.java.document.JsonDocument
 import models.{ModelJsonFormat, User}
-import repositories.bridge.CouchbaseBridge
+import repositories.bridge.CouchbaseDriver
 import rx.lang.scala.JavaConversions
 
 import scala.concurrent.{Future, Promise}
+import scala.concurrent.ExecutionContext.Implicits.global
 
 /**
   * Created by admin on 3/18/16.
   */
-trait UserRepoComponentImpl extends UserRepoComponent with BaseRepo {
+trait UserRepoComponentImpl extends UserRepoComponent with ConvertorRepo with BaseRepo {
 
   val userRepo = new UserRepoCouch
 
-  class UserRepoCouch extends UserRepo with ModelJsonFormat {
+  class UserRepoCouch extends UserRepo {
 
     override def getUser(id: String): Future[Option[User]] = {
-      val couchbaseBridge = new CouchbaseBridge(userServers, userBucketName)
-      val promise = Promise[Option[User]]()
-      JavaConversions.toScalaObservable(couchbaseBridge.get(id)).toList.map(a => if (a.isEmpty) None else Some(User(id = a.head.content().toString, email = "email")))
-        .subscribe(x => promise.success(x), e => promise.failure(e), () => ())
-      promise.future
+      convertObservablesToFuture(couchbaseDriver.asyncGetById(id)).map(_.headOption)
     }
 
     override def addUser(user: User): Future[Boolean] = {
-      Future.successful(true)
+      val json = JsonDocument.create(user.id, objectToJson(user))
+      convertObservableToFuture(couchbaseDriver.asyncSet(json)).map(a => true)
     }
   }
 

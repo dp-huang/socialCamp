@@ -17,6 +17,6 @@ object IdGenerator {
       sb.append(digits(random.nextInt(digits.length)))
     }
     sb.append(java.lang.Long.toString(System.nanoTime(), Character.MAX_RADIX))
-    sb.toString
+    sb.toString.toUpperCase
   }
 }

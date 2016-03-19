@@ -8,7 +8,7 @@ import utils.IdGenerator
 package object services {
 
   def userModelToDTO(user: User): UserDTO = {
-    UserDTO(id = user.id)
+    UserDTO(id = user.id, email = user.email, firstName = user.firstName, lastName = user.lastName)
   }
 
   def addUserDTOToModel(addUserDTO: AddUserDTO): User = {
