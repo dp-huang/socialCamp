@@ -41,9 +41,4 @@ public class CouchbaseBridge {
         return Observable.just(id).flatMap(asyncBucket::get);
     }
 
-    public JsonDocument getById(String id) {
-        this.openBucket();
-        return this.syncBucket.get(id);
-    }
-
 }

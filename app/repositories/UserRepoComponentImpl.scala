@@ -18,7 +18,7 @@ trait UserRepoComponentImpl extends UserRepoComponent with BaseRepo {
     override def getUser(id: String): Future[Option[User]] = {
       val couchbaseBridge = new CouchbaseBridge(userServers, userBucketName)
       val promise = Promise[Option[User]]()
-      JavaConversions.toScalaObservable(couchbaseBridge.get(id)).map[Option[User]](a => Some(User(id = "test", email = "email")))
+      JavaConversions.toScalaObservable(couchbaseBridge.get(id)).toList.map(a => if (a.isEmpty) None else Some(User(id = a.head.content().toString, email = "email")))
         .subscribe(x => promise.success(x), e => promise.failure(e), () => ())
       promise.future
     }

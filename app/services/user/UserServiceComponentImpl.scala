@@ -19,7 +19,10 @@ trait UserServiceComponentImpl extends UserServiceComponent {
   class UserServiceImpl extends UserService {
 
     override def getUserById(id: String): Future[UserDTO] = {
-      userRepo.getUser(id).map(a => userModelToDTO(a.get))
+      userRepo.getUser(id) map {
+        case Some(a) => userModelToDTO(a)
+        case _ => throw new Exception("not found")
+      }
     }
 
     override def addUser(dto: AddUserDTO): Future[String] = {
