@@ -1,9 +1,10 @@
 package repositories
 
 import models.{ModelJsonFormat, User}
+import repositories.bridge.CouchbaseBridge
+import rx.lang.scala.JavaConversions
 
-import scala.concurrent.Future
-import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.{Future, Promise}
 
 /**
   * Created by admin on 3/18/16.
@@ -15,11 +16,15 @@ trait UserRepoComponentImpl extends UserRepoComponent with BaseRepo {
   class UserRepoCouch extends UserRepo with ModelJsonFormat {
 
     override def getUser(id: String): Future[Option[User]] = {
-      userBucket.get[User](id)
+      val couchbaseBridge = new CouchbaseBridge(userServers, userBucketName)
+      val promise = Promise[Option[User]]()
+      JavaConversions.toScalaObservable(couchbaseBridge.get(id)).map[Option[User]](a => Some(User(id = "test", email = "email")))
+        .subscribe(x => promise.success(x), e => promise.failure(e), () => ())
+      promise.future
     }
 
     override def addUser(user: User): Future[Boolean] = {
-      userBucket.set[User](user.id, user).map(_.isSuccess)
+      Future.successful(true)
     }
   }
 

@@ -19,8 +19,7 @@ trait UserServiceComponentImpl extends UserServiceComponent {
   class UserServiceImpl extends UserService {
 
     override def getUserById(id: String): Future[UserDTO] = {
-      val testUser = userModelToDTO(User("test_id", "email@email.com"))
-      Future.successful(testUser)
+      userRepo.getUser(id).map(a => userModelToDTO(a.get))
     }
 
     override def addUser(dto: AddUserDTO): Future[String] = {

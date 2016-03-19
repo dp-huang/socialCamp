@@ -1,5 +1,5 @@
 import com.google.inject.AbstractModule
-import repositories.UserRepoComponentImpl
+import repositories.{BaseRepo, UserRepoComponentImpl}
 import services.user.{UserServiceComponent, UserServiceComponentImpl}
 
 /**

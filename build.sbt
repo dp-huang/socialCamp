@@ -11,12 +11,10 @@ libraryDependencies ++= Seq(
   cache,
   ws,
   "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.0-RC1" % Test,
-  "org.reactivecouchbase" %% "reactivecouchbase-play" % "0.3",
   "com.wordnik" %% "swagger-play2" % "1.3.12",
   "com.wix" %% "accord-core" % "0.4",
-  "com.couchbase.client" % "java-client" % "2.2.5"
-
+  "com.couchbase.client" % "java-client" % "2.2.5",
+  "io.reactivex" % "rxscala_2.11" % "0.26.0"
 )
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
-resolvers += "ReactiveCouchbase" at "https://raw.github.com/ReactiveCouchbase/repository/master/releases"
