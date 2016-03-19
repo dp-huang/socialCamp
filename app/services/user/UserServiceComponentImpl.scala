@@ -2,6 +2,7 @@ package services.user
 
 import dtos.UserDTO
 import models.User
+import repositories.UserRepoComponentImpl
 import services._
 
 import scala.concurrent.Future
@@ -10,6 +11,7 @@ import scala.concurrent.Future
   * Created by admin on 3/17/16.
   */
 trait UserServiceComponentImpl extends UserServiceComponent {
+  this: UserRepoComponentImpl =>
 
   val userService = new UserServiceImpl
 

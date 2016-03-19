@@ -1,8 +1,18 @@
 package repositories
 
+import models.User
+
+import scala.concurrent.Future
+
 /**
   * Created by admin on 3/18/16.
   */
-class UserRepoComponent {
+trait UserRepoComponent {
 
+  val userRepo: UserRepo
+
+  trait UserRepo {
+
+    def getUser(id: String): Future[Option[User]]
+  }
 }
