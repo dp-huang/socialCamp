@@ -7,6 +7,6 @@ import play.api.libs.json.Json
   */
 trait DTOJsonFormat {
 
-  implicit val userResponseFormat = Json.format[UserDTO]
-
+  implicit val userDTOFormat = Json.format[UserDTO]
+  implicit val addUserDTOFormat = Json.format[AddUserDTO]
 }

@@ -1,6 +1,7 @@
 package repositories
 
 import models.User
+import org.reactivecouchbase.client.OpResult
 
 import scala.concurrent.Future
 
@@ -14,5 +15,7 @@ trait UserRepoComponent {
   trait UserRepo {
 
     def getUser(id: String): Future[Option[User]]
+
+    def addUser(user: User): Future[Boolean]
   }
 }

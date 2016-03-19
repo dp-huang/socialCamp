@@ -17,6 +17,10 @@ trait UserRepoComponentImpl extends UserRepoComponent with BaseRepo {
     override def getUser(id: String): Future[Option[User]] = {
       userBucket.get[User](id)
     }
+
+    override def addUser(user: User): Future[Boolean] = {
+      userBucket.set[User](user.id, user).map(_.isSuccess)
+    }
   }
 
 }
