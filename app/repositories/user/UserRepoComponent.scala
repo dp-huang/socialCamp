@@ -1,4 +1,4 @@
-package repositories
+package repositories.user
 
 import models.User
 
@@ -15,6 +15,6 @@ trait UserRepoComponent {
 
     def getUser(id: String): Future[Option[User]]
 
-    def addUser(user: User): Future[Boolean]
+    def setUser(user: User): Future[Boolean]
   }
 }

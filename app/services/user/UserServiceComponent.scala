@@ -1,10 +1,7 @@
 package services.user
 
 import dtos.{AddUserDTO, UserDTO}
-import models.User
 import services._
-
-import scala.concurrent.Future
 
 /**
   * Created by admin on 3/17/16.
@@ -18,5 +15,7 @@ trait UserServiceComponent {
     def getUserById(id: String): ServiceResponse[UserDTO]
 
     def addUser(dto: AddUserDTO): ServiceResponse[String]
+
+    def updateUser(dto: UserDTO): ServiceResponse[Boolean]
   }
 }

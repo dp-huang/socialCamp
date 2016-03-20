@@ -1,6 +1,6 @@
 import com.wix.accord.Violation
-import dtos.{AddUserDTO, ResponseDTO, UserDTO}
-import models.User
+import dtos.{AddUserDTO, AssetDTO, ResponseDTO, UserDTO}
+import models.{Asset, User}
 import utils.IdGenerator
 
 import scala.concurrent.Future
@@ -22,5 +22,13 @@ package object services {
 
   def addUserDTOToModel(addUserDTO: AddUserDTO): User = {
     User(id = IdGenerator.newId(Some(classOf[User])), email = addUserDTO.email, firstName = addUserDTO.firstName, lastName = addUserDTO.lastName)
+  }
+
+  def userDTOToModel(userDTO: UserDTO): User = {
+    User(id = userDTO.id, email = userDTO.email, firstName = userDTO.firstName, lastName = userDTO.lastName)
+  }
+
+  def assetModelToDTO(asset: Asset): AssetDTO = {
+    AssetDTO(id = asset.id)
   }
 }

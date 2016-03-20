@@ -1,8 +1,9 @@
-package repositories
+package repositories.user
 
 import com.couchbase.client.java.document.RawJsonDocument
 import models.{ModelJsonFormat, User}
 import play.api.libs.json.Json
+import repositories.{BaseRepo, ConvertRepo}
 
 import scala.collection.JavaConversions._
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -21,7 +22,7 @@ trait UserRepoComponentImpl extends UserRepoComponent with ConvertRepo with Base
       convertGet[User](couchbaseDriver.asyncGetByIds(List(id))).map(_.headOption)
     }
 
-    override def addUser(user: User): Future[Boolean] = {
+    override def setUser(user: User): Future[Boolean] = {
       val rawJsonDocument = RawJsonDocument.create(user.id, Json.toJson(user).toString())
       convertSet[User](couchbaseDriver.asyncSet(rawJsonDocument)).map(a => true)
     }

@@ -2,7 +2,7 @@ package controllers
 
 import javax.inject.{Inject, Singleton}
 
-import dtos.{AddUserDTO, DTOJsonFormat}
+import dtos.{AddUserDTO, DTOJsonFormat, UserDTO}
 import play.api.libs.json.Json
 import play.api.mvc.{Action, Controller}
 import services.user.UserServiceComponent
@@ -28,7 +28,18 @@ class UserController @Inject() (comp: UserServiceComponent) extends Controller w
           val dto = json.as[AddUserDTO]
           comp.userService.addUser(dto).map(r => Ok(Json.toJson(r)))
       } getOrElse {
-        Future(BadRequest("Incorrect Json data"))
+        Future.successful(BadRequest("Incorrect Json data"))
+      }
+  }
+
+  def updateUser() = Action.async {
+    request =>
+      request.body.asJson map {
+        json =>
+          val dto = json.as[UserDTO]
+          comp.userService.updateUser(dto).map(r => Ok(Json.toJson(r)))
+      } getOrElse {
+        Future.successful(BadRequest("Incorrect Json data"))
       }
   }
 }

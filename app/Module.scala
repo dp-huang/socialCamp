@@ -1,5 +1,7 @@
 import com.google.inject.AbstractModule
-import repositories.{BaseRepo, UserRepoComponentImpl}
+import repositories.asset.AssetRepoComponentImpl
+import repositories.user.UserRepoComponentImpl
+import services.asset.{AssetServiceComponent, AssetServiceComponentImpl}
 import services.user.{UserServiceComponent, UserServiceComponentImpl}
 
 /**
@@ -16,9 +18,11 @@ class Module extends AbstractModule {
 
   override def configure() = {
 
-    val comp = new UserServiceComponentImpl with UserRepoComponentImpl
-    bind(classOf[UserServiceComponent]).toInstance(comp)
+    val userComp = new UserServiceComponentImpl with UserRepoComponentImpl
+    bind(classOf[UserServiceComponent]).toInstance(userComp)
 
+    val assetComp = new AssetServiceComponentImpl with AssetRepoComponentImpl
+    bind(classOf[AssetServiceComponent]).toInstance(assetComp)
   }
 
 }

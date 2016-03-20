@@ -1,6 +1,5 @@
 package repositories.bridge;
 
-import com.couchbase.client.deps.com.fasterxml.jackson.databind.ObjectMapper;
 import com.couchbase.client.java.AsyncBucket;
 import com.couchbase.client.java.Bucket;
 import com.couchbase.client.java.Cluster;
@@ -9,12 +8,8 @@ import com.couchbase.client.java.document.JsonDocument;
 import com.couchbase.client.java.document.RawJsonDocument;
 import com.couchbase.client.java.env.CouchbaseEnvironment;
 import com.couchbase.client.java.env.DefaultCouchbaseEnvironment;
-import models.User;
 import rx.Observable;
 
-import java.io.IOException;
-import java.io.UncheckedIOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,9 +28,19 @@ public class CouchbaseDriver {
 
     private CouchbaseEnvironment couchbaseEnvironment = DefaultCouchbaseEnvironment.create();
 
-    public CouchbaseDriver(List<String> hosts, String bucket) {
+    private CouchbaseDriver(List<String> hosts, String bucket) {
         this.hosts = hosts;
         this.bucket = bucket;
+        System.out.println("couch base driver initialization");
+    }
+
+    private static CouchbaseDriver instance;
+
+    public static CouchbaseDriver getInstance(List<String> hosts, String bucket) {
+        if (instance == null) {
+            instance = new CouchbaseDriver(hosts, bucket);
+        }
+        return instance;
     }
 
     private void openBucket() {

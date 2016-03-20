@@ -12,6 +12,10 @@ object ErrorCode extends Enumeration {
   val UnKnown = 0
 
   val UserNotExist = 10
+  val UserCreatedFailed = 11
+  val UserUpdatedFailed = 12
+
+  val AssetNotExist = 20
 }
 
 

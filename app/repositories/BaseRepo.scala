@@ -16,5 +16,5 @@ trait BaseRepo {
   lazy private val userPassword = Play.current.configuration.getString("couchbase.pass")
 
 
-  lazy val couchbaseDriver = new CouchbaseDriver(userServers, userBucketName)
+  lazy val couchbaseDriver = CouchbaseDriver.getInstance(userServers, userBucketName)
 }

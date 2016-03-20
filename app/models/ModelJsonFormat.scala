@@ -9,4 +9,6 @@ trait ModelJsonFormat {
 
   implicit val userFormat = Json.format[User]
 
+  implicit val assetFormat = Json.format[Asset]
+
 }

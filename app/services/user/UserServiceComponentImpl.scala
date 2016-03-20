@@ -1,12 +1,11 @@
 package services.user
 
 import dtos._
-import models.User
-import repositories.UserRepoComponentImpl
+import repositories.user.UserRepoComponentImpl
 import services._
 
-import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 /**
   * Created by admin on 3/17/16.
@@ -27,9 +26,25 @@ trait UserServiceComponentImpl extends UserServiceComponent {
 
     override def addUser(dto: AddUserDTO): ServiceResponse[String] = {
       val user = addUserDTOToModel(dto)
-      userRepo.addUser(user) map {
+      userRepo.setUser(user) map {
         result =>
-          DTO(if (result) user.id else "")
+          if (result) DTO(user.id) else ErrorDTO(ErrorCode.UserCreatedFailed)
+      }
+    }
+
+    override def updateUser(dto: UserDTO): ServiceResponse[Boolean] = {
+      userRepo.getUser(dto.id) flatMap {
+        user =>
+          user match {
+            case Some(u) =>
+              val updateUser = userDTOToModel(dto)
+              userRepo.setUser(updateUser) map {
+                result =>
+                  if (result) DTO(result) else ErrorDTO(ErrorCode.UserUpdatedFailed)
+              }
+            case _ =>
+              Future.successful(ErrorDTO(ErrorCode.UserNotExist))
+          }
       }
     }
 
