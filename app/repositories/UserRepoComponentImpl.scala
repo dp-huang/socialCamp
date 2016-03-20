@@ -1,14 +1,12 @@
 package repositories
 
-import com.couchbase.client.java.document.{JsonDocument, RawJsonDocument}
+import com.couchbase.client.java.document.RawJsonDocument
 import models.{ModelJsonFormat, User}
 import play.api.libs.json.Json
-import repositories.bridge.CouchbaseDriver
-import rx.lang.scala.JavaConversions
 
-import scala.concurrent.{Future, Promise}
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.collection.JavaConversions._
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 /**
   * Created by admin on 3/18/16.

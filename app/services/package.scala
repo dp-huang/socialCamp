@@ -12,6 +12,6 @@ package object services {
   }
 
   def addUserDTOToModel(addUserDTO: AddUserDTO): User = {
-    User(id = IdGenerator.newId(), email = addUserDTO.email, firstName = addUserDTO.firstName, lastName = addUserDTO.lastName)
+    User(id = IdGenerator.newId(Some(classOf[User])), email = addUserDTO.email, firstName = addUserDTO.firstName, lastName = addUserDTO.lastName)
   }
 }
