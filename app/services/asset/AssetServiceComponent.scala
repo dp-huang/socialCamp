@@ -1,6 +1,6 @@
 package services.asset
 
-import dtos.AssetDTO
+import dtos.{AddAssetDTO, AssetDTO, StringDTO}
 import services.ServiceResponse
 
 /**
@@ -13,5 +13,7 @@ trait AssetServiceComponent {
   trait AssetService {
 
     def getAssetById(id: String): ServiceResponse[AssetDTO]
+
+    def createAsset(dto: AddAssetDTO): ServiceResponse[StringDTO]
   }
 }

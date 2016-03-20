@@ -16,6 +16,7 @@ object ErrorCode extends Enumeration {
   val UserUpdatedFailed = 12
 
   val AssetNotExist = 20
+  val AssetCreatedFailed = 21
 }
 
 
@@ -55,3 +56,6 @@ case class DTO[T](d: T) extends ResponseDTO[T] {
 case class ErrorDTO[T](errCode: Int = ErrorCode.UnKnown, errMessage: String = "") extends ResponseDTO[T] {
   def isError = true
 }
+
+case class BooleanDTO(res: Boolean)
+case class StringDTO(res: String)

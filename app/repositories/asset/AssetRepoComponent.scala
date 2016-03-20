@@ -14,5 +14,7 @@ trait AssetRepoComponent {
   trait AssetRepo {
 
     def getAssetById(id: String): Future[Option[Asset]]
+
+    def createAsset(asset: Asset): Future[Boolean]
   }
 }

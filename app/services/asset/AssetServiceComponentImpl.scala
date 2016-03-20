@@ -1,6 +1,6 @@
 package services.asset
 
-import dtos.{AssetDTO, DTO, ErrorCode, ErrorDTO}
+import dtos._
 import repositories.asset.AssetRepoComponent
 import services._
 
@@ -20,6 +20,14 @@ trait AssetServiceComponentImpl extends AssetServiceComponent {
       assetRepo.getAssetById(id) map {
         case Some(a) => DTO(assetModelToDTO(a))
         case _ => ErrorDTO(ErrorCode.AssetNotExist)
+      }
+    }
+
+    override def createAsset(dto: AddAssetDTO): ServiceResponse[StringDTO] = {
+      val asset = addAssetDTOToModel(dto)
+      assetRepo.createAsset(asset) map {
+        result =>
+          if (result) DTO(StringDTO(asset.id)) else ErrorDTO(ErrorCode.AssetCreatedFailed)
       }
     }
   }

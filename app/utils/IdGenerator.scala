@@ -1,6 +1,6 @@
 package utils
 
-import models.User
+import models.{Asset, User}
 
 import scala.util.Random
 
@@ -18,6 +18,8 @@ object IdGenerator {
     val prefix = classType match {
       case Some(a) if a == User.getClass || a == classOf[User] =>
         "M"
+      case Some(a) if a == Asset.getClass || a == classOf[Asset] =>
+        "A"
       case _ => ""
     }
     sb.append(prefix)

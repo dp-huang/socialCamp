@@ -24,15 +24,15 @@ trait UserServiceComponentImpl extends UserServiceComponent {
       }
     }
 
-    override def addUser(dto: AddUserDTO): ServiceResponse[String] = {
+    override def addUser(dto: AddUserDTO): ServiceResponse[StringDTO] = {
       val user = addUserDTOToModel(dto)
       userRepo.setUser(user) map {
         result =>
-          if (result) DTO(user.id) else ErrorDTO(ErrorCode.UserCreatedFailed)
+          if (result) DTO(StringDTO(user.id)) else ErrorDTO(ErrorCode.UserCreatedFailed)
       }
     }
 
-    override def updateUser(dto: UserDTO): ServiceResponse[Boolean] = {
+    override def updateUser(dto: UserDTO): ServiceResponse[BooleanDTO] = {
       userRepo.getUser(dto.id) flatMap {
         user =>
           user match {
@@ -40,7 +40,7 @@ trait UserServiceComponentImpl extends UserServiceComponent {
               val updateUser = userDTOToModel(dto)
               userRepo.setUser(updateUser) map {
                 result =>
-                  if (result) DTO(result) else ErrorDTO(ErrorCode.UserUpdatedFailed)
+                  if (result) DTO(BooleanDTO(result)) else ErrorDTO(ErrorCode.UserUpdatedFailed)
               }
             case _ =>
               Future.successful(ErrorDTO(ErrorCode.UserNotExist))

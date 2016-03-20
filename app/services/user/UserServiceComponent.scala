@@ -1,6 +1,6 @@
 package services.user
 
-import dtos.{AddUserDTO, UserDTO}
+import dtos.{AddUserDTO, BooleanDTO, StringDTO, UserDTO}
 import services._
 
 /**
@@ -14,8 +14,8 @@ trait UserServiceComponent {
 
     def getUserById(id: String): ServiceResponse[UserDTO]
 
-    def addUser(dto: AddUserDTO): ServiceResponse[String]
+    def addUser(dto: AddUserDTO): ServiceResponse[StringDTO]
 
-    def updateUser(dto: UserDTO): ServiceResponse[Boolean]
+    def updateUser(dto: UserDTO): ServiceResponse[BooleanDTO]
   }
 }

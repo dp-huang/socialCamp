@@ -1,5 +1,5 @@
 import com.wix.accord.Violation
-import dtos.{AddUserDTO, AssetDTO, ResponseDTO, UserDTO}
+import dtos._
 import models.{Asset, User}
 import utils.IdGenerator
 
@@ -29,6 +29,10 @@ package object services {
   }
 
   def assetModelToDTO(asset: Asset): AssetDTO = {
-    AssetDTO(id = asset.id)
+    AssetDTO(id = asset.id, name = asset.name)
+  }
+
+  def addAssetDTOToModel(addAssetDTO: AddAssetDTO): Asset = {
+    Asset(id = IdGenerator.newId(Some(classOf[Asset])), name = addAssetDTO.name)
   }
 }
