@@ -10,6 +10,8 @@ package dtos
 object ErrorCode extends Enumeration {
   val NoError = -1
   val UnKnown = 0
+
+  val UserNotExist = 10
 }
 
 

@@ -1,6 +1,6 @@
 package services.user
 
-import dtos.{AddUserDTO, UserDTO}
+import dtos._
 import models.User
 import repositories.UserRepoComponentImpl
 import services._
@@ -18,18 +18,18 @@ trait UserServiceComponentImpl extends UserServiceComponent {
 
   class UserServiceImpl extends UserService {
 
-    override def getUserById(id: String): Future[UserDTO] = {
+    override def getUserById(id: String): ServiceResponse[UserDTO] = {
       userRepo.getUser(id) map {
-        case Some(a) => userModelToDTO(a)
-        case _ => throw new Exception("not found")
+        case Some(a) => DTO(userModelToDTO(a))
+        case _ => ErrorDTO(ErrorCode.UserNotExist)
       }
     }
 
-    override def addUser(dto: AddUserDTO): Future[String] = {
+    override def addUser(dto: AddUserDTO): ServiceResponse[String] = {
       val user = addUserDTOToModel(dto)
       userRepo.addUser(user) map {
         result =>
-          if (result) user.id else ""
+          DTO(if (result) user.id else "")
       }
     }
 

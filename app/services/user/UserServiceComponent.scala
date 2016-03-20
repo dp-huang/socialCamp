@@ -2,6 +2,7 @@ package services.user
 
 import dtos.{AddUserDTO, UserDTO}
 import models.User
+import services._
 
 import scala.concurrent.Future
 
@@ -14,8 +15,8 @@ trait UserServiceComponent {
 
   trait UserService {
 
-    def getUserById(id: String): Future[UserDTO]
+    def getUserById(id: String): ServiceResponse[UserDTO]
 
-    def addUser(dto: AddUserDTO): Future[String]
+    def addUser(dto: AddUserDTO): ServiceResponse[String]
   }
 }
