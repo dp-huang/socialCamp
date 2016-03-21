@@ -1,6 +1,6 @@
 import com.wix.accord.Violation
 import dtos._
-import models.{Asset, User}
+import models.{Asset, Like, User}
 import utils.IdGenerator
 
 import scala.concurrent.Future
@@ -34,5 +34,9 @@ package object services {
 
   def addAssetDTOToModel(addAssetDTO: AddAssetDTO): Asset = {
     Asset(id = IdGenerator.newId(Some(classOf[Asset])), name = addAssetDTO.name)
+  }
+
+  def likeAssetDTOToModel(likeDTO: LikeDTO): Like = {
+    Like(userId = likeDTO.userId, assetId = likeDTO.assetId, created = System.currentTimeMillis())
   }
 }

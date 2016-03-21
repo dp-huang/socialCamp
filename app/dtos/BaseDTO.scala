@@ -17,6 +17,8 @@ object ErrorCode extends Enumeration {
 
   val AssetNotExist = 20
   val AssetCreatedFailed = 21
+
+  val LikeError = 31
 }
 
 

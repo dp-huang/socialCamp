@@ -12,5 +12,7 @@ PUT     /user                       controllers.UserController.updateUser()
 GET     /asset/:id                  controllers.AssetController.getAssetById(id: String)
 POST    /asset                      controllers.AssetController.createAsset()
 
+POST    /like                       controllers.SocialController.like()
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

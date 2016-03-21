@@ -22,4 +22,5 @@ trait DTOJsonFormat {
   implicit val addUserDTOFormat = Json.format[AddUserDTO]
   implicit val assetDTOFormat = Json.format[AssetDTO]
   implicit val addAssetDTOFormat = Json.format[AddAssetDTO]
+  implicit val likeDTOFormat = Json.format[LikeDTO]
 }

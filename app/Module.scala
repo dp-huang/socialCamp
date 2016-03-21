@@ -1,7 +1,9 @@
 import com.google.inject.AbstractModule
 import repositories.asset.AssetRepoComponentImpl
+import repositories.social.SocialRepoComponentImpl
 import repositories.user.UserRepoComponentImpl
 import services.asset.{AssetServiceComponent, AssetServiceComponentImpl}
+import services.social.{SocialServiceComponent, SocialServiceComponentImpl}
 import services.user.{UserServiceComponent, UserServiceComponentImpl}
 
 /**
@@ -23,6 +25,9 @@ class Module extends AbstractModule {
 
     val assetComp = new AssetServiceComponentImpl with AssetRepoComponentImpl
     bind(classOf[AssetServiceComponent]).toInstance(assetComp)
+
+    val socialComp = new SocialServiceComponentImpl with SocialRepoComponentImpl
+    bind(classOf[SocialServiceComponent]).toInstance(socialComp)
   }
 
 }
